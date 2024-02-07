@@ -1,0 +1,41 @@
+public class TravelPackageManagementSystem {
+
+    public static void main(String[] args) {
+        // Create a travel package
+        TravelPackage package1 = new TravelPackage("Java Adventure", 20);
+
+        // Add destinations
+        Destination bali = new Destination("Bali");
+        package1.itinerary.add(bali);
+        Destination lombok = new Destination("Lombok");
+        package1.itinerary.add(lombok);
+
+        // Add activities to Bali
+        Activity surfing = new Activity("Surfing", "Catch waves in paradise", 50.0, 10);
+        surfing.destination = bali;
+        bali.activities.add(surfing);
+        Activity diving = new Activity("Diving", "Explore underwater wonders", 100.0, 5);
+        diving.destination = bali;
+        bali.activities.add(diving);
+
+        // ... (add more activities for other destinations)
+
+        // Add passengers
+        Passenger john = new Passenger("John Doe", 1234, PassengerType.STANDARD, 100.0);
+        package1.addPassenger(john);
+        Passenger jane = new Passenger("Jane Doe", 5678, PassengerType.GOLD, 500.0);
+        package1.addPassenger(jane);
+
+        // Register passengers for activities
+        john.registerActivity(bali, surfing); // success
+        jane.registerActivity(bali, surfing); // failed (capacity reached)
+        jane.registerActivity(lombok, new Activity("Hiking", "...", 20.0, 20)); // success
+
+        // Print reports
+        package1.printItinerary();
+        package1.printPassengerList();
+        john.printDetails();
+        jane.printDetails();
+        package1.printAvailableActivities();
+    }
+}
